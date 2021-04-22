@@ -28,12 +28,15 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus =  Menu::with("children")->orderBy(DB::raw('ABS(`order`)'))->orderBy('id', 'ASC')->get();
-        $menuTree = MenuHelper::buildTreeMenu($menus, 0);
-        $this->_data ['menuTree'] = $menuTree;
+        $menus = Menu::getAllMenuBuildTree();
+        $this->_data['menus'] = $menus;
+
         return view('menu::index', $this->_data);
     }
 
+    private function removeSession(){
+        session()->forget('admin_menus');
+    }
     /**
      * Show the form for creating a new resource.
      * @return Response
@@ -62,11 +65,13 @@ class MenuController extends Controller
      */
     public function store(MenuRequest $request)
     {
+
+        $this->removeSession();
         $obj = Menu::create ( $request->except ( [ ] ) );
         $obj->target = isset($request->target)?"_blank":"_self";
-        $obj->parent_id=(int)$obj->parent_id;
+        $obj->parent_id=(int)$request->parent_id?? 0;
         $obj->status=(int)$request->status;
-
+        $obj->menu_title = (int)$request->menu_title ?? 0;
         if ($request->has ( [
             'error_description'
         ] )) {
@@ -78,15 +83,15 @@ class MenuController extends Controller
         $permissions = null;
         if (is_array($request->permissions)) {
             $permissions = Permission::whereIn('id', $request->permissions)->get();
+
         }
 
         $obj->syncPermissions($permissions);
 
-        session()->forget('admin_menus');
 
-        LoggingHelper::infor("","Thêm menu ",$obj->name);
+        LoggingHelper::infor("","Add new menu ",$obj->name);
 
-        return redirect ( route($this->index_page))->with ( 'flash-message', "Bạn đã thêm dữ liệu thành công" );
+        return redirect ( route($this->index_page))->with ( 'flash-message', "Add New Menu Success!" );
     }
 
     /**
@@ -106,23 +111,20 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-
         $fileJson =  __DIR__."./../../Resources/assets/json/font-awesome.json";
         $listIcon = json_decode(file_get_contents($fileJson), true);
-
         $obj = Menu::find($id);
         $menus =  Menu::orderBy(DB::raw('ABS(`order`)'))->orderBy('id', 'ASC')->get();
         $mTree = array();
         MenuHelper::buildTreeMenu_select($menus, $mTree, 0);
         $m = collect($mTree);
         $menuTree = $m->pluck("text", "value");
-        $menuTree->prepend ( 'Chọn Menu', '0' );
+        $menuTree->prepend ( 'Select Menu', '0' );
 
         $permission_list = Permission::all();
         $obj->permissions = $obj->permissions()->pluck("id")->toArray();
 
-//        $menuTree = MenuHelper::buildTreeMenu($menus, 0);
-        return view ( 'menu::edit', compact('obj', 'menuTree', 'permission_list','listIcon') );
+        return view ( 'menu::edit', compact('obj', 'menuTree','listIcon', 'permission_list') );
     }
 
     /**
@@ -133,13 +135,14 @@ class MenuController extends Controller
      */
     public function update(MenuEditRequest $request, $id)
     {
-
+        $this->removeSession();
 
         $obj = Menu::find($id);
         $obj->name = $request->name;
         $obj->parent_id = (int)$request->parent_id;
         $obj->url = $request->url;
         $obj->icons = $request->icons;
+        $obj->menu_title = (int)$request->menu_title ?? 0;
         $obj->status=(int)$request->status;
         $obj->target = isset($request->target)?"_blank":"_self";
         $obj->save();
@@ -151,8 +154,8 @@ class MenuController extends Controller
         }
         $obj->syncPermissions($permissions);
         LoggingHelper::infor("","Edit menu ",$obj->name);
-        session()->forget('admin_menus');
-        return redirect ( route($this->index_page))->with ( 'flash-message', "Bạn đã cập nhật dữ liệu thành công" );
+
+        return redirect ( route($this->index_page))->with ( 'flash-message', "Change Data Success!" );
     }
 
     /**
@@ -160,30 +163,24 @@ class MenuController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy(Request $request)
+    public function destroy(int $id)
     {
-        $id = $request->id;
-        //
+        $this->removeSession();
         if (! is_numeric ( $id )) {
-            redirect ( route($this->index_page))->with ( "flash-message", "Dữ liệu không tồn tại" );
-            return;
+            return response()->json(["status"=>1,"message"=>"Data Not Exist!"]);
         }
         $obj= Menu::find($id);
         $obj->delete ();
 
+        LoggingHelper::infor("","Delete menu ",$obj->name);
 
-        \Session::flash('flash-message', 'Bạn đã xóa thành công!');
-        LoggingHelper::infor("","Xóa menu ",$obj->name);
-        session()->forget('admin_menus');
-        return response()->json(["message"=>"Bạn đã xóa menu thành công"]);
-//        \Session::flash('flash-message', 'Bạn đã xóa thành công!');
-//        return redirect ( route($this->index_page))->with ( "flash-message", "Bạn đã xóa thành công" );
+        return response()->json(["status"=>0,"message"=>"Delete Menu Success!"]);
     }
 
 
     public function destroyMany(Request $request) {
         $ids = $request->id;
-
+        $this->removeSession();
         $check = true;
         if (is_array($ids)) {
             foreach ($ids as $id) {
@@ -200,101 +197,107 @@ class MenuController extends Controller
 
             $check = false;
         }
-        session()->forget('admin_menus');
+
         if ($check) {
             Menu::whereIn('id', $ids)->delete();
-            LoggingHelper::infor("","Xóa nhiều menu ","");
+            LoggingHelper::infor("","Delete Multiple Menu ","");
 
-            return redirect ( route($this->index_page))->with ( "flash-message", "Bạn đã xóa thành công" );
+            return redirect ( route($this->index_page))->with ( "flash-message", "Delete Successful!" );
         }
-        return redirect ( route($this->index_page))->with ( "error", "Dữ liệu lỗi, Please try again" );
+        return redirect ( route($this->index_page))->with ( "error", "Data Invalid, Please try again!" );
 
     }
 
     public function updateStatus(Request $request) {
+        $this->removeSession();
         $id = (int)$request->id;
-        if ($id<1) return abort(400, "Không tìm thấy dữ liệu hợp lệ");
+        if ($id<1) return abort(400, "No Data Valid!");
         $status = (int)$request->status;
         $status = ($status==0)?0:1;
 
         $obj = Menu::find($id);
-        if (!$obj) return abort(400, "Không tìm thấy dữ liệu hợp lệ");
+        if (!$obj) return abort(400, "No Data Valid!");
 
         $obj->status = $status;
         $obj->save();
-        LoggingHelper::infor("","Thay đổi trạng thái menu ",$obj->name);
-        session()->forget('admin_menus');
-       return response()->json(["status" => 0, "message" => "Cập nhật dữ liệu thành công"]);
+        LoggingHelper::infor("","Change Menu: ",$obj->name);
+
+       return response()->json(["status" => 0, "message" => "Change data success!"]);
 
     }
-
     public function updateOrder(Request $request) {
+        $ids = $request->ids;
+        $parent = $request->parent;
+        $dataUpdate = Menu::updateOrderAndStatus($ids , $parent);
+        $this->removeSession();
+        return response()->json($dataUpdate);
 
-        $id = (int)$request->id;
-        $action = $request->order;
-
-        if ($id<1) return abort(500, "Dữ liệu không hợp lệ hoặc không được quyền truy cập.");
-        $obj = Menu::find($id);
-        if (!$obj) return abort(500, "Dữ liệu không hợp lệ hoặc không được quyền truy cập.");
-
-        $siblings = Menu::where("parent_id", $obj->parent_id)->orderBy(DB::raw('ABS(`order`)'))->get();
-        $bfItem = array();
-        $afItem = array();
-        $lastItem = null;
-        $bfOk = false;
-        $afOk = false;
-        $order = 1;
-
-        foreach ($siblings as $item) {
-//            if ($item->id == $obj->id) {
-//                $obj->order = $order;
-//                continue;
-//            }
-
-            if ($item->order != $order) {
-                $item->order = $order;
-                $item->save();
-            }
-
-            $order++;
-            if (!$bfOk) {
-                if ($item->id == $id) {
-                    $bfItem = $lastItem;
-                    $bfOk = true;
-                }
-            }
-
-            if (!$afOk) {
-                if ($lastItem != null && $lastItem->id == $id) {
-                    $afItem = $item;
-                    $afOk = true;
-                }
-            }
-
-            $lastItem = $item;
-        }
-
-        if (strcmp($action, "up") == 0 ) {
-
-            if (!$bfItem) return abort(500, "Thao tác không hợp lệ");
-            $tg = $bfItem->order;
-            $bfItem->order = $obj->order;
-            $obj->order = $tg;
-            $bfItem->save();
-            $obj->save();
-        }
-
-        if (strcmp($action, "down") == 0) {
-            if (!$afItem) return abort(500, "Thao tác không hợp lệ");
-            $tg = $afItem->order;
-            $afItem->order = $obj->order;
-            $obj->order = $tg;
-            $afItem->save();
-            $obj->save();
-        }
-        LoggingHelper::infor("","Sắp xếp lại thứ tự menu ","");
-        session()->forget('admin_menus');
-        return response()->json(["status" => 0, "message" => "Cập nhật dữ liệu thành công"]);
-//        $obj->save();
     }
+//    public function updateOrder(Request $request) {
+//        $this->removeSession();
+//        $id = (int)$request->id;
+//        $action = $request->order;
+//
+//        if ($id<1) return abort(500, "Data is not exist or restrict permission.");
+//        $obj = Menu::find($id);
+//        if (!$obj) return abort(500, "Data is not exist or restrict permission.");
+//
+//        $siblings = Menu::where("parent_id", $obj->parent_id)->orderBy(DB::raw('ABS(`order`)'))->get();
+//        $bfItem = array();
+//        $afItem = array();
+//        $lastItem = null;
+//        $bfOk = false;
+//        $afOk = false;
+//        $order = 1;
+//        foreach ($siblings as $item) {
+////            if ($item->id == $obj->id) {
+////                $obj->order = $order;
+////                continue;
+////            }
+//            if ($item->order != $order) {
+//                $item->order = $order;
+//                $item->save();
+//            }
+//
+//            $order++;
+//            if (!$bfOk) {
+//                if ($item->id == $id) {
+//                    $bfItem = $lastItem;
+//                    $bfOk = true;
+//                }
+//            }
+//
+//            if (!$afOk) {
+//                if ($lastItem != null && $lastItem->id == $id) {
+//                    $afItem = $item;
+//                    $afOk = true;
+//                }
+//            }
+//
+//            $lastItem = $item;
+//        }
+//
+//        if (strcmp($action, "up") == 0 ) {
+//
+//            if (!$bfItem) return abort(500, "Invalid Action!");
+//            $tg = $bfItem->order;
+//            $bfItem->order = $obj->order;
+//            $obj->order = $tg;
+//            $bfItem->save();
+//            $obj->save();
+//        }
+//
+//        if (strcmp($action, "down") == 0) {
+//            if (!$afItem) return abort(500, "Invalid Action!");
+//            $tg = $afItem->order;
+//            $afItem->order = $obj->order;
+//            $obj->order = $tg;
+//            $afItem->save();
+//            $obj->save();
+//        }
+//        LoggingHelper::infor("","Change Menu Order ","");
+//
+//        return response()->json(["status" => 0, "message" => "Change data success!"]);
+////        $obj->save();
+//    }
 }

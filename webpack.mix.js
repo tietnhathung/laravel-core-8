@@ -34,4 +34,9 @@ mix.combine([
     'public/assets/plugins/toastr/toastr.min.css',
     'public/assets/plugins/datetimepicker/bootstrap-datetimepicker.min.css'
 ], 'public/css/master.css');
+
+mix.js('cores/Menu/Resources/assets/js/app.js', 'public/mix/js/menu.js');
+
+mix.sass('cores/Menu/Resources/assets/sass/app.scss', 'public/mix/css/menu.css');
+
 mix.copy('public/assets/plugins/fontawesome/webfonts/', "public/webfonts/");

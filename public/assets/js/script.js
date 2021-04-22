@@ -160,29 +160,33 @@ $(document).ready(function () {
 
     $('.table-data').checkAll();
 
-    $('.btn-delete-one').click(function (e) {
+
+    $(".btn-delete-one").on('click', async function (e) {
         e.preventDefault();
-
-        let id = parseInt($(this).attr('data-id'));
-        let url = $(this).attr('data-ajax-url');
-        let urlGoback = $(this).attr('data-ajax-url-go-back');
-
+        let url = $(this).attr("data-ajax-url");
+        let element = $(this);
         if (confirm('Bạn có chắc muốn xóa?')) {
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    id: id
+            UserInterface.prototype.showLoading();
+            fetch(url, {
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
-                traditional: true,
-                complete: function () {
-                    if (!Validate.prototype.isNullOrWhiteSpace(urlGoback)) {
-                        window.location.href = urlGoback;
-                    } else {
-                        window.location.reload();
-                    }
+                method: 'DELETE',
+            }).then(
+                response => response.json()
+            ).then(data => {
+                UserInterface.prototype.hideLoading();
+                if (data.status === 0){
+                    element.closest('tr').remove();
+                    toastr.success(data.message);
+                }else{
+                    toastr.success(error);
                 }
+            }).catch(error => {
+                toastr.success(error);
+                UserInterface.prototype.hideLoading();
             });
+
         }
     });
 
@@ -223,6 +227,24 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $('.changeStatus').on('change', function () {
+        let id = $(this).attr('abbr');
+        let state = $(this).prop('checked') ? 1 : 0;
+        UserInterface.prototype.showLoading();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('abbr-url'),
+            dataType: 'JSON',
+            data: {
+                id: id,
+                status: state
+            }
+        }).done(function (msg) {
+            UserInterface.prototype.hideLoading();
+            toastr.success(msg.message);
+        });
     });
 
     $('body').on('blur', 'input.require-int-unsigned', function () {

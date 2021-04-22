@@ -51,11 +51,12 @@
                                 <td class="hidden-sm hidden-xs col-2 ">{{ $item->created_at->format(env("datetimeFormat")) }}</td>
                                 <td class="text-center col-2">
                                     <div class="action-buttons">
-                                        <a class="btn btn-info btn-sm" href="{{route("role.edit", $item->id)}}"><i
-                                                title="Edit" id="item-12" class="fas fa-pencil-alt bigger-120"></i></a>
-                                        <a class="btn btn-danger text-white deleteOne btn-sm"
-                                           attr="{{ route("role.destroy", $item->id) }}"><i title="Delete" id="item-12"
-                                                                                            class="fa fa-trash bigger-120"></i></a>
+                                        <a class="btn btn-info btn-sm" href="{{route("role.edit", $item->id)}}">
+                                            <i title="Edit" id="item-12" class="fas fa-pencil-alt bigger-120"></i>
+                                        </a>
+                                        <a class="btn btn-danger text-white btn-delete-one btn-sm"  data-ajax-url="{{ route("role.destroy", $item->id) }}">
+                                            <i title="Delete" id="item-12" class="fa fa-trash bigger-120"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -71,31 +72,6 @@
 @endsection
 @section('scripts')
     <script>
-        $(".deleteOne").on('click', async function (e) {
-
-            let url = $(this).attr("attr");
-            let element = $(this);
-            if (await UserInterface.prototype.showConfirm('Are you sure you want to delete?')) {
-                UserInterface.prototype.showLoading();
-                fetch(url, {
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                    },
-                    method: 'DELETE',
-                }).then(
-                    response => response.json()
-                ).then(data => {
-                    element.closest('tr').remove();
-                    toastr.success(data.message);
-                    UserInterface.prototype.hideLoading();
-                }).catch(error => {
-                    toastr.success(error);
-                    UserInterface.prototype.hideLoading();
-
-                });
-
-            }
-        });
         $("#checkAll").click(function () {
             $('tbody input:checkbox').not(this).prop('checked', this.checked);
         });

@@ -85,12 +85,11 @@
                                         @if($item->id != Auth::id())
                                             <div class="action-buttons">
                                                 <a href="{{route("user.edit", $item->id)}}"
-                                                   class="btn btn-sm btn-info "><i title="Edit" id="item-12"
-                                                                                   class="fas fa-pencil-alt bigger-120"></i></a>
-                                                <a class="btn btn-sm btn-danger deleteOne"
-                                                   attr="{{ route("user.destroy", $item->id) }}">
-                                                    <i title="Xóa" id="item-12"
-                                                       class="fa fa-trash bigger-120 text-white"></i>
+                                                   class="btn btn-sm btn-info ">
+                                                    <i title="Edit" id="item-12"  class="fas fa-pencil-alt bigger-120"></i>
+                                                </a>
+                                                <a class="btn btn-danger text-white btn-delete-one btn-sm"  data-ajax-url="{{ route("user.destroy", $item->id) }}">
+                                                    <i title="Delete" id="item-12" class="fa fa-trash bigger-120"></i>
                                                 </a>
                                             </div>
                                         @endif
@@ -117,46 +116,7 @@
 
 @section('scripts')
     <script>
-        $('.changeStatus').on('change', function () {
-            id = $(this).attr('abbr');
-            state = $(this).prop('checked') ? 1 : 0;
-            UserInterface.prototype.showLoading();
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('abbr-url'),
-                dataType: 'JSON',
-                data: {
-                    id: id,
-                    status: state
-                }
-            }).done(function (msg) {
-                UserInterface.prototype.hideLoading();
-                toastr.success(msg.message);
-            });
-        });
-        $(".deleteOne").on('click', async function () {
-            let url = $(this).attr("attr");
-            let element = $(this);
-            if (await UserInterface.prototype.showConfirm('Are you sure you want to delete?')) {
-                UserInterface.prototype.showLoading();
-                fetch(url, {
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                    },
-                    method: 'DELETE',
-                }).then(
-                    response => response.json()
-                ).then(data => {
-                    element.closest('tr').remove();
-                    toastr.success(data.message);
-                    UserInterface.prototype.hideLoading();
-                }).catch(error => {
-                    toastr.success(error);
-                    UserInterface.prototype.hideLoading();
-                });
 
-            }
-        });
         $("#checkAll").click(function () {
             $('tbody input:checkbox').not(this).not('.c-switch-input').prop('checked', this.checked);
         });

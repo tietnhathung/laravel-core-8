@@ -3,7 +3,6 @@
 namespace Core\Menu\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -17,7 +16,6 @@ class MenuServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-//        $this->registerFactories();
         $this->registerHelpers();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
@@ -83,17 +81,7 @@ class MenuServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register an additional directory of factories.
-     *
-     * @return void
-     */
-    public function registerFactories()
-    {
-        if (! app()->environment('production')) {
-            app(Factory::class)->load(__DIR__ . '/../Database/factories');
-        }
-    }
+
 
     /**
      * Register an additional directory of factories.

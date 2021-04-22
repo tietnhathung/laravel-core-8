@@ -25,7 +25,6 @@ class MenuHelper {
                 $branch[] = $element;
             }
         }
-
         return $branch;
     }
 

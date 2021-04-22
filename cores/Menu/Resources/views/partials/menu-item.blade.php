@@ -2,10 +2,17 @@
     <td class="text-center">
         <input type="checkbox" value="{{ $item->id }}" name="ids[]" class="chk-item" autocomplete="off" />
     </td>
-    <td class="sorting_1">
-        {!! str_repeat ("&emsp;", $item->level) !!}
-        <i class="{{ (isset($item->icons) && $item->icons!="") ? $item->icons : 'far fa-arrow-alt-circle-right' }}"></i> {{ $item->name }}
-    </td>
+    @if($item->menu_title == 1)
+        <td class="sorting_1">
+            {!! str_repeat ("&emsp;", $item->level) !!}
+            <span class="text-uppercase font-weight-bold">{{ $item->name }}</span>
+        </td>
+    @else
+        <td class="sorting_1">
+            {!! str_repeat ("&emsp;", $item->level) !!}
+            <i class="{{ (isset($item->icons) && $item->icons!="") ? $item->icons : 'far fa-arrow-alt-circle-right' }}"></i> {{ $item->name }}
+        </td>
+    @endif
     <td class="hidden-sm hidden-xs">{{ $item->url }}</td>
     <td class="text-center hidden-sm hidden-xs">{{ $item->target }}</td>
     <td class="text-center item">

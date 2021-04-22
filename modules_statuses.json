@@ -4,5 +4,6 @@
     "Logging": true,
     "Menu": true,
     "Role": true,
-    "User": true
+    "User": true,
+    "Test": true
 }

@@ -21,14 +21,12 @@ class CreateAdMenuTable extends Migration {
 			$table->string('url', 191)->nullable()->default('');
 			$table->integer('parent_id')->index('parent_id');
 			$table->string('icons', 191)->nullable()->default('');
-			$table->string('model_type', 191)->nullable();
 			$table->string('target', 191)->nullable()->default('_self');
 			$table->integer('order')->default(0)->index('order');
 			$table->string('route', 191)->nullable();
 			$table->timestamps(6);
 			$table->boolean('status')->default(0)->index('status');
 			$table->softDeletes()->index('deleted_at');
-			$table->integer('default_monitor_id')->nullable();
 			$table->boolean('menu_title')->nullable()->default(0);
 		});
 	}

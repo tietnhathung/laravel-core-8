@@ -5,94 +5,50 @@
     @include('shared.message')
     <div class="card">
         <div class="card-header">
-            <h1 class="h5 m-0">Danh sách menu</h1>
+            <h1 class="h5 m-0">Menu List</h1>
         </div>
         <div class="card-body">
             <div class="mb-3">
                 <button type="button" class="btn btn-danger btn-sm btn-delete-multi" data-ajax-url="{{ route('menu.destroyMany') }}">
-                    <i class="fas fa-trash-alt"></i>Xóa
+                    <i class="fas fa-trash-alt"></i> Delete
                 </button>
                 <a href="{{ Utilities::getUrlWithGoBack(route('menu.create')) }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-file-alt"></i>Thêm
+                    <i class="fas fa-file-alt"></i> Create
                 </a>
             </div>
-            <div class="table-responsive-sm">
-                <table class="table table-striped table-data">
-                    <thead>
-                        <tr>
-                            <th class="text-center" style="width: 40px;">
-                                <input type="checkbox" class="chk-all" autocomplete="off" />
-                            </th>
-                            <th>Tên</th>
-                            <th>Url</th>
-                            <th class="text-center">Target</th>
-                            <th class="text-center">Trạng thái</th>
-                            <th class="text-center" style="width: 90px;">Vị trí</th>
-                            <th class="text-center" style="width: 90px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @each('menu::partials.menu-item', $menuTree, 'item')
-                    </tbody>
-                </table>
+            <div class="col-md-12">
+                <div class="row hear-menu">
+                    <div class="col-md-1 text-center">
+                        <input type="checkbox" class="chk-all" autocomplete="off">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        Name
+                    </div>
+                    <div class="col-md-3 text-center">
+                        Url
+                    </div>
+                    <div class="col-md-2 text-center">
+                        Target
+                    </div>
+                    <div class="col-md-2 text-center">
+                        Status
+                    </div>
+                    <div class="col-md-2 text-center">
+                        Action
+                    </div>
+                </div>
+                <div id="list-menu" class="row list-group-menu" data-id="0">
+                    @foreach($menus as $menu)
+                        @include("menu::partials.menu-item-index",["menu" => $menu])
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
 @endsection
-
+@section('styles')
+    <link href="{{mix("/mix/css/menu.css")}}" rel="stylesheet" >
+@endsection
 @section('scripts')
-    <script type="text/javascript">
-        $('.orderUp').on('click', function () {
-            item_id = $(this).attr('item-id');
-            object_id = $(this).attr('object-id');
-
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('abbr-url'),
-                data: {
-                    id: item_id,
-                    objectid: object_id,
-                    order: 'up'
-                }
-            }).done(function (msg) {
-                window.location.reload();
-            });
-        });
-
-        $('.orderDown').on('click', function () {
-            item_id = $(this).attr('item-id');
-            object_id = $(this).attr('object-id');
-            console.log(item_id);
-
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('abbr-url'),
-                data: {
-                    id: item_id,
-                    objectid: object_id,
-                    order: 'down'
-                }
-            }).done(function (msg) {
-                window.location.reload();
-            });
-        });
-
-        $('.changeStatusmenu').on('change', function () {
-            id = $(this).attr('abbr');
-            state = $(this).prop('checked') ? 1 : 0;
-            console.log($(this).attr('abbr-url'));
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('abbr-url'),
-                dataType: 'JSON',
-                data: {
-                    id: id,
-                    status: state
-                }
-            }).done(function (msg) {
-                window.location.reload();
-            });
-        });
-
-    </script>
+    <script src="{{mix("/mix/js/menu.js")}}" ></script>
 @endsection
