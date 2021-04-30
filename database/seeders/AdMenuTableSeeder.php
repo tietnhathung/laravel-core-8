@@ -26,7 +26,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/',
                 'parent_id' => 0,
                 'icons' => 'fas fa-home',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 0,
                 'route' => NULL,
@@ -34,7 +34,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-02-18 13:08:36',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             1 => 
@@ -44,7 +44,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/monitoring',
                 'parent_id' => 0,
                 'icons' => 'fas fa-tv',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 1,
                 'route' => NULL,
@@ -52,7 +52,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             2 => 
@@ -62,7 +62,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/report',
                 'parent_id' => 175,
                 'icons' => 'far fa-chart-bar',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 3,
                 'route' => NULL,
@@ -70,7 +70,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             3 => 
@@ -80,7 +80,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/plan',
                 'parent_id' => 175,
                 'icons' => 'fas fa-calendar-check',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 0,
                 'route' => NULL,
@@ -88,7 +88,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             4 => 
@@ -98,7 +98,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/efficiency',
                 'parent_id' => 175,
                 'icons' => 'fas fa-chart-line',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 4,
                 'route' => NULL,
@@ -106,7 +106,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             5 => 
@@ -116,7 +116,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '#',
                 'parent_id' => 0,
                 'icons' => 'fab fa-500px',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 3,
                 'route' => NULL,
@@ -124,7 +124,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 1,
             ),
             6 => 
@@ -134,7 +134,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/device',
                 'parent_id' => 164,
                 'icons' => 'fab fa-500px',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 2,
                 'route' => NULL,
@@ -142,7 +142,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             7 => 
@@ -152,7 +152,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/itemCode',
                 'parent_id' => 164,
                 'icons' => 'fab fa-500px',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 6,
                 'route' => NULL,
@@ -160,7 +160,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             8 => 
@@ -170,7 +170,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/downtimeCode',
                 'parent_id' => 164,
                 'icons' => 'fab fa-500px',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 4,
                 'route' => NULL,
@@ -178,7 +178,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             9 => 
@@ -188,7 +188,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/section',
                 'parent_id' => 164,
                 'icons' => 'fas fa-th-large',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 0,
                 'route' => NULL,
@@ -196,7 +196,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             10 => 
@@ -206,7 +206,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/monitor',
                 'parent_id' => 164,
                 'icons' => 'fas fa-tv',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 5,
                 'route' => NULL,
@@ -214,7 +214,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             11 => 
@@ -224,7 +224,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '#',
                 'parent_id' => 0,
                 'icons' => 'fab fa-500px',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 4,
                 'route' => NULL,
@@ -232,7 +232,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-02-18 13:08:36',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 1,
             ),
             12 => 
@@ -242,7 +242,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/user',
                 'parent_id' => 171,
                 'icons' => 'fas fa-user',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 0,
                 'route' => NULL,
@@ -250,7 +250,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-02-18 10:52:54',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             13 => 
@@ -260,7 +260,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/role',
                 'parent_id' => 171,
                 'icons' => 'fas fa-users',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 1,
                 'route' => NULL,
@@ -268,7 +268,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-02-18 10:52:54',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             14 => 
@@ -278,7 +278,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '#',
                 'parent_id' => 0,
                 'icons' => 'fab fa-accusoft',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 2,
                 'route' => NULL,
@@ -286,7 +286,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 1,
             ),
             15 => 
@@ -296,7 +296,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/device/breaktime',
                 'parent_id' => 175,
                 'icons' => 'fab fa-500px',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 1,
                 'route' => NULL,
@@ -304,7 +304,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             16 => 
@@ -314,7 +314,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/groupItem',
                 'parent_id' => 164,
                 'icons' => 'fab fa-500px',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 3,
                 'route' => NULL,
@@ -322,7 +322,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             17 => 
@@ -332,7 +332,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/manufacture/efficiencyjanofsectionstride',
                 'parent_id' => 175,
                 'icons' => 'fas fa-align-left',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 2,
                 'route' => NULL,
@@ -340,7 +340,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-04-10 15:45:44',
                 'status' => 1,
                 'deleted_at' => '2021-04-10 15:45:44',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             18 => 
@@ -350,7 +350,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => 'ss',
                 'parent_id' => 0,
                 'icons' => '',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 0,
                 'route' => NULL,
@@ -358,7 +358,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-01-27 03:18:48',
                 'status' => 1,
                 'deleted_at' => '2021-01-27 03:18:48',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             19 => 
@@ -368,7 +368,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => 'hihi',
                 'parent_id' => 0,
                 'icons' => '',
-                'model_type' => NULL,
+                
                 'target' => '_blank',
                 'order' => 0,
                 'route' => NULL,
@@ -376,7 +376,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-01-27 03:30:38',
                 'status' => 1,
                 'deleted_at' => '2021-01-27 03:30:38',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             20 => 
@@ -386,7 +386,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => 'ss',
                 'parent_id' => 0,
                 'icons' => '',
-                'model_type' => NULL,
+                
                 'target' => '_blank',
                 'order' => 0,
                 'route' => NULL,
@@ -394,7 +394,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-01-27 03:30:30',
                 'status' => 1,
                 'deleted_at' => '2021-01-27 03:30:30',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             21 => 
@@ -404,7 +404,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => '/menu',
                 'parent_id' => 171,
                 'icons' => 'fas fa-align-justify',
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 2,
                 'route' => NULL,
@@ -412,7 +412,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-02-18 10:52:54',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
             22 => 
@@ -422,7 +422,7 @@ class AdMenuTableSeeder extends Seeder
                 'url' => NULL,
                 'parent_id' => 0,
                 'icons' => NULL,
-                'model_type' => NULL,
+                
                 'target' => '_self',
                 'order' => 0,
                 'route' => NULL,
@@ -430,7 +430,7 @@ class AdMenuTableSeeder extends Seeder
                 'updated_at' => '2021-01-27 05:49:31',
                 'status' => 1,
                 'deleted_at' => '2021-01-27 05:49:31',
-                'default_monitor_id' => NULL,
+                
                 'menu_title' => 0,
             ),
         ));
